@@ -1,0 +1,42 @@
+{
+  "name": "qraphql-api-services",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=14.10.0"
+  },
+  "main": "index.js",
+  "author": "Egisberto Silva <egisberto#gmail.com>",
+  "license": "none",
+  "private": false,
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.13.0",
+    "@graphql-tools/stitch": "^7.5.3",
+    "apollo-server": "^2.25.2",
+    "dotenv": "^10.0.0",
+    "graphql": "^15.5.1",
+    "lodash": "^4.17.21",
+    "mongodb": "^4.6.0",
+    "uuid": "^7.0.2"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon index.js",
+    "start": "NODE_ENV=production node index.js",
+    "start-database": "cd ./mongodb && docker-compose up -d",
+    "stop-database": "cd ./mongodb && docker-compose down",
+    "lint": "eslint --ext js,jsx .",
+    "lint-fix": "eslint --ext js,jsx . --fix"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.0.1",
+    "eslint": "^7.1.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "eslint-plugin-standard": "^4.0.1",
+    "nodemon": "^1.18.7"
+  }
+}
