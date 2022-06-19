@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 const { PubSub } = require('graphql-subscriptions')
 const { faker } = require('@faker-js/faker')
 const { connectToDatabase } = require('../repositories/mongodb')
@@ -8,9 +9,22 @@ const NEW = 'newPost'
 module.exports = {
   postResolver: {
     Query: {
-      posts: async (_, { limit = 10, offset = 0, sort = { _id: 'asc' } }) => {
+      posts: async (_, { limit = 10, offset = 0, textSearch = '', sort }) => {
         const db = await connectToDatabase()
-        const posts = await db.collection('posts').find({}, { limit, offset, sort }).toArray()
+        let posts = null
+        if (textSearch) {
+          posts = await db.collection('posts').find(
+            { $text: { $search: `${textSearch}` } },
+            {
+              limit,
+              offset,
+              project: !sort ? { score: { $meta: 'textScore' } } : {},
+              sort: !sort ? { score: { $meta: 'textScore' } } : {}
+            }
+          ).toArray()
+        } else {
+          posts = await db.collection('posts').find({}, { limit, offset, sort }).toArray()
+        }
 
         return posts
       },
@@ -36,7 +50,7 @@ module.exports = {
 
         for (let index = 0; index < quantity; index++) {
           db.collection('posts').insertOne({
-            title: faker.lorem.sentence(faker.helpers.arrayElement([1, 2, 3])),
+            title: faker.lorem.sentence(faker.helpers.arrayElement([1, 2, 3, 4, 5])),
             content: faker.lorem.paragraphs(faker.helpers.arrayElement([1, 2, 3, 4, 5])),
             author: {
               name: faker.name.findName(),

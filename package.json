@@ -5,7 +5,7 @@
   "engines": {
     "node": ">=14.10.0"
   },
-  "main": "index.js",
+  "main": "cluster.js",
   "author": "Egisberto Silva <egisberto#gmail.com>",
   "license": "none",
   "private": false,
@@ -20,8 +20,8 @@
     "uuid": "^7.0.2"
   },
   "scripts": {
-    "dev": "NODE_ENV=development nodemon index.js",
-    "start": "NODE_ENV=production node index.js",
+    "start": "nodemon cluster.js",
+    "dev": "nodemon index.js",
     "start-database": "cd ./mongodb && docker-compose up -d",
     "stop-database": "cd ./mongodb && docker-compose down",
     "lint": "eslint --ext js,jsx .",

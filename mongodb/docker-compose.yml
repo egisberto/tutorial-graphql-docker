@@ -8,3 +8,11 @@ services:
       - '27017:27017'
     volumes:
       - ./data/db:/data/db
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 3G
+        reservations:
+          cpus: 1
+          memory: 2G
