@@ -1,4 +1,4 @@
-EGWork - GraphQL + Docker
+EGWork - MongoDB + Docker + GraphQL + Text index
 ===================
 
 ![API Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)
